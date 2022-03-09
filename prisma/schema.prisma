@@ -8,20 +8,20 @@ datasource db {
 }
 
 model brand {
-  id          Int        @id(map: "PK__brand__3213E83FF39E70C8") @default(autoincrement())
+  id          Int        @id(map: "PK__brand__3213E83F3AFF5D5C") @default(autoincrement())
   description String     @db.NVarChar(50)
   vehicles    vehicles[]
 }
 
 model documentType {
-  id          Int        @id(map: "PK__document__3213E83F5BC9A94A") @default(autoincrement())
+  id          Int        @id(map: "PK__document__3213E83FDEF4F94A") @default(autoincrement())
   description String     @db.NVarChar(25)
   users       users[]
   vehicles    vehicles[]
 }
 
 model images {
-  id                                               Int        @id(map: "PK__images__3213E83FD3BA7A7F") @default(autoincrement())
+  id                                               Int        @id(map: "PK__images__3213E83FA2EBA32E") @default(autoincrement())
   filename                                         String     @db.NVarChar(100)
   extension                                        String     @db.NVarChar(5)
   content                                          Bytes      @db.VarBinary(1)
@@ -32,41 +32,41 @@ model images {
 }
 
 model users {
-  id              Int           @id(map: "PK__users__3213E83F3A31F9D6") @default(autoincrement())
+  id              Int           @id(map: "PK__users__3213E83F93AA524F") @default(autoincrement())
   name            String        @db.NVarChar(50)
   lastname        String        @db.NVarChar(50)
-  documentNumber  String        @unique(map: "UQ__users__E72B65A37DA503D6") @db.NVarChar(50)
+  documentNumber  String        @unique(map: "UQ__users__E72B65A3A1B41B12") @db.NVarChar(50)
   addres          String?       @db.NVarChar(150)
   cellphoneNumber String        @db.NVarChar(20)
   phoneNumber     String?       @db.NVarChar(20)
-  email           String        @unique(map: "UQ__users__AB6E616497C94424") @db.NVarChar(50)
+  email           String        @unique(map: "UQ__users__AB6E6164428A6544") @db.NVarChar(50)
   password        String        @db.NVarChar(150)
   userTypeId      Int
   documentTypeId  Int
   documentImageId Int?
-  images          images?       @relation(fields: [documentImageId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__users__documentI__6EF57B66")
-  documentType    documentType  @relation(fields: [documentTypeId], references: [id], onUpdate: NoAction, map: "FK__users__documentT__6E01572D")
-  userType        userType      @relation(fields: [userTypeId], references: [id], onUpdate: NoAction, map: "FK__users__userTypeI__6D0D32F4")
+  images          images?       @relation(fields: [documentImageId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__users__documentI__2E1BDC42")
+  documentType    documentType  @relation(fields: [documentTypeId], references: [id], onUpdate: NoAction, map: "FK__users__documentT__2D27B809")
+  userType        userType      @relation(fields: [userTypeId], references: [id], onUpdate: NoAction, map: "FK__users__userTypeI__2C3393D0")
   userVehicle     userVehicle[]
 }
 
 model userType {
-  id          Int     @id(map: "PK__userType__3213E83F3BD8007E") @default(autoincrement())
+  id          Int     @id(map: "PK__userType__3213E83F0716594E") @default(autoincrement())
   description String  @db.NVarChar(25)
   users       users[]
 }
 
 model userVehicle {
-  id        Int      @id(map: "PK__userVehi__3213E83F72350DC4") @default(autoincrement())
+  id        Int      @id(map: "PK__userVehi__3213E83F43949DEF") @default(autoincrement())
   userId    Int
   vehicleId Int
-  users     users    @relation(fields: [userId], references: [id], onUpdate: NoAction, map: "FK__userVehic__userI__6FE99F9F")
-  vehicles  vehicles @relation(fields: [vehicleId], references: [id], onUpdate: NoAction, map: "FK__userVehic__vehic__70DDC3D8")
+  users     users    @relation(fields: [userId], references: [id], onUpdate: NoAction, map: "FK__userVehic__userI__3D5E1FD2")
+  vehicles  vehicles @relation(fields: [vehicleId], references: [id], onUpdate: NoAction, map: "FK__userVehic__vehic__3E52440B")
 }
 
 model vehicles {
-  id                                             Int           @id(map: "PK__vehicles__3213E83FA968B710") @default(autoincrement())
-  vehiclePlate                                   String        @unique(map: "UQ__vehicles__5116F78CC691545B") @db.NVarChar(50)
+  id                                             Int           @id(map: "PK__vehicles__3213E83FC8D701EE") @default(autoincrement())
+  vehiclePlate                                   String        @unique(map: "UQ__vehicles__5116F78CF2DD8A73") @db.NVarChar(50)
   color                                          String        @db.NVarChar(50)
   vehicleTypeId                                  Int
   capacity                                       Int
@@ -85,17 +85,17 @@ model vehicles {
   documentTypeId                                 Int
   model                                          Int
   brandId                                        Int
-  brand                                          brand         @relation(fields: [brandId], references: [id], onUpdate: NoAction, map: "FK__vehicles__brandI__76969D2E")
-  images_imagesTovehicles_carInsuranceImageId    images        @relation("imagesTovehicles_carInsuranceImageId", fields: [carInsuranceImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__carIns__72C60C4A")
-  documentType                                   documentType  @relation(fields: [documentTypeId], references: [id], onUpdate: NoAction, map: "FK__vehicles__docume__75A278F5")
-  images_imagesTovehicles_propertyCardImageId    images        @relation("imagesTovehicles_propertyCardImageId", fields: [propertyCardImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__proper__74AE54BC")
-  images_imagesTovehicles_technomechanicsImageId images        @relation("imagesTovehicles_technomechanicsImageId", fields: [technomechanicsImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__techno__73BA3083")
-  vehicleType                                    vehicleType   @relation(fields: [vehicleTypeId], references: [id], onUpdate: NoAction, map: "FK__vehicles__vehicl__71D1E811")
+  brand                                          brand         @relation(fields: [brandId], references: [id], onUpdate: NoAction, map: "FK__vehicles__brandI__3A81B327")
+  images_imagesTovehicles_carInsuranceImageId    images        @relation("imagesTovehicles_carInsuranceImageId", fields: [carInsuranceImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__carIns__36B12243")
+  documentType                                   documentType  @relation(fields: [documentTypeId], references: [id], onUpdate: NoAction, map: "FK__vehicles__docume__398D8EEE")
+  images_imagesTovehicles_propertyCardImageId    images        @relation("imagesTovehicles_propertyCardImageId", fields: [propertyCardImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__proper__38996AB5")
+  images_imagesTovehicles_technomechanicsImageId images        @relation("imagesTovehicles_technomechanicsImageId", fields: [technomechanicsImageId], references: [id], onUpdate: NoAction, map: "FK__vehicles__techno__37A5467C")
+  vehicleType                                    vehicleType   @relation(fields: [vehicleTypeId], references: [id], onUpdate: NoAction, map: "FK__vehicles__vehicl__35BCFE0A")
   userVehicle                                    userVehicle[]
 }
 
 model vehicleType {
-  id          Int        @id(map: "PK__vehicleT__3213E83F2E8FB6B7") @default(autoincrement())
+  id          Int        @id(map: "PK__vehicleT__3213E83F866FD49E") @default(autoincrement())
   description String     @db.NVarChar(50)
   vehicles    vehicles[]
 }
