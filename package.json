@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rimraf dist",
     "transpile": "babel ./src --out-dir dist --copy-files",
-    "build": "npm-run-all clean transpile",
+    "build": "npm-run-all clean transpile server",
     "server": "node ./dist/main.js",
-    "prod": "set NODE_ENV=production && npm-run-all build server",
-    "dev": "set NODE_ENV=development && npm-run-all build server",
+    "prod": "set NODE_ENV=production && npm-run-all build",
+    "dev": "set NODE_ENV=development && npm-run-all build",
     "watch:dev": "nodemon",
     "start": "npm run prod"
   },
