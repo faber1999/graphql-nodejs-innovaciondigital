@@ -2,7 +2,7 @@
   "name": "graphql-nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "clean": "rimraf dist",
     "transpile": "babel ./src --out-dir dist --copy-files",
